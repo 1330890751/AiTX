@@ -7,7 +7,9 @@ import {
 } from './platform-service.interface';
 import { PlatformLoginErrorCode } from '@typings/error';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AppPlatformService implements IPlatformService {
   constructor() {}
   private loginType = '';

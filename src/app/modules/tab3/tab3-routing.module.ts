@@ -6,7 +6,15 @@ const routes: Routes = [
   {
     path: '',
     component: Tab3Page,
-  }
+  }, {// Job search
+    path: 'JobSearchPage',
+    loadChildren: () =>
+      import('../job-search/main/main.module').then((m) => m.JobSearchPageModule),
+  }, {// ResumeUploadPage
+    path: 'ResumeUploadPage',
+    loadChildren: () =>
+      import('../resume-upload/main/main.module').then((m) => m.ResumeUploadPageModule),
+  },
 ];
 
 @NgModule({

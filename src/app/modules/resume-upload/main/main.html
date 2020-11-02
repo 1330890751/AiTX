@@ -1,0 +1,33 @@
+<ion-header #header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title [hidden]="islandscape"> {{ '简历上传' | translate }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!--pagesate-->
+  <!-- <vx-pagestate [state]="pageState"></vx-pagestate> -->
+  <div class="pd-20">
+    <h3 class="resume-title">请选择简历上传方式，并录入信息。</h3>
+    <p class="resume-text">支持word、pdf、ppt、txt、wps格式文件，文件大小需小于10M</p>
+    <ion-card>
+        <div class="upload-thumb">
+          <div class="inner">
+
+          </div>
+        </div>
+        <p class="upload-text">手机本地文件上传</p>
+    </ion-card>
+    <ion-card>
+      <div class="upload-thumb">
+        <div class="inner">
+          
+        </div>
+      </div>
+      <p class="upload-text">PC端文件上传</p>
+  </ion-card>
+  </div>
+</ion-content>
+

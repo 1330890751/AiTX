@@ -4,7 +4,11 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { DemoComponent } from '@shared/components/demo/demo.component';
-const components = [DemoComponent];
+import { VxPageStateComponent } from '@shared/components/vx-pagestate/vx-pagestate';
+const components = [
+  DemoComponent,
+  VxPageStateComponent
+];
 
 @NgModule({
   declarations: [...components],

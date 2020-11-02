@@ -6,7 +6,25 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
   constructor() {}
-
+  tabDatas = [
+    {
+      tab: 'position',
+      iconIo: 'ellipse',
+      icon: 'vx-position',
+      label: '职位',
+    },
+    {
+      tab: 'me',
+      iconIo: 'square',
+      icon: 'vx-me',
+      label: '我的',
+    },
+    {
+      tab: 'tab3',
+      iconIo: 'square',
+      icon: 'vx-contacts',
+      label: 'tab3',
+    }
+  ];
 }
