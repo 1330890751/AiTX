@@ -41,6 +41,11 @@
     padding: 32px 20px;
     margin-bottom: 20px;
     box-sizing: border-box;
+    &.upload-btn{
+      input{
+        display: none;
+      }
+    }
     &:last-child{
       margin-bottom: 0;
     }

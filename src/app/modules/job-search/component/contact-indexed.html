@@ -1,0 +1,6 @@
+<ul class="ion_index_sidebar" [style.height]="indexheight" [style.top]="topHeight + 'px'">
+  <li *ngFor="let item of sidebarScrollIndex; let i = index" (click)="scrollToLetter(item)">
+    {{ item }}
+  </li>
+</ul>
+<div class="highlight-letter" *ngIf="currLetter != ''">{{ currLetter }}</div>
