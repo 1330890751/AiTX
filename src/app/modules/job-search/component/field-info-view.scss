@@ -1,0 +1,24 @@
+@import 'vx_variables';
+@import 'mixin';
+:host {
+  display: block;
+  width: 100%;
+  // vertical-align: top;
+  margin: 0px;
+  padding: 0px;
+  @include fontSize(14px, 21px);
+  .knx-div-view-left,
+  .knx-div-view-right {
+    display: inline;
+    // word-break: break-all;
+    line-height: 33px;
+    color: #626262;
+  }
+  .knx-div-view-left {
+    color: #969696;
+  }
+  //
+  // <div *ngIf="!isImage" class="knx-div-view-right" [innerHTML]="value">
+
+  // </div>
+}

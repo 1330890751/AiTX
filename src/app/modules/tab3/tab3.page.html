@@ -7,11 +7,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
+  
+  <div style="margin: 20px;" (click)="goPage('ResumeUploadPage')">点我去简历上传</div>
+  <div style="margin: 20px;" (click)="goPage('JobSearchPage')">点我去搜索页</div>
   <app-explore-container name="Tab 3 page"></app-explore-container>
 </ion-content>
