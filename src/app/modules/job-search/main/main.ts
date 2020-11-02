@@ -11,6 +11,7 @@ import { Events } from '@core/services/events.service';
 import { AuthService } from '@core/auth.service';
 import { UtilityComponentService } from '@core/utils-component.service';
 // import { ContactService } from '../../../core/services/contact.service';
+import { _HttpClient } from '@core/http.client';
 import * as _ from 'lodash';
 @Component({
   selector: 'my-team-main-page',
@@ -23,27 +24,27 @@ export class JobSearchPage implements OnInit, OnDestroy {
   historyData = [{
     id: 0,
     text: "前端开发"
-  },{
+  }, {
     id: 1,
     text: "市场拓展经理"
   }];
   genreData = [{
     id: 0,
     text: "岗位类型XXX"
-  },{
+  }, {
     id: 1,
     text: "岗位类型XXX岗位类型abcd"
-  },{
+  }, {
     id: 2,
     text: "岗位类型XXX"
-  },{
+  }, {
     id: 3,
     text: "岗位类型abcd"
   }];
   rangeData = [{
     text1: "2-8",
     text2: "30%的选择"
-  },{
+  }, {
     text1: "8-12",
     text2: "60%的选择"
   },{
@@ -53,10 +54,10 @@ export class JobSearchPage implements OnInit, OnDestroy {
   hotCity = [{
     id: 0,
     text: "北京"
-  },{
+  }, {
     id: 1,
     text: "上海"
-  },{
+  }, {
     id: 2,
     text: "杭州"
   }];
@@ -107,6 +108,7 @@ export class JobSearchPage implements OnInit, OnDestroy {
     public authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
+    public http: _HttpClient
   ) {
     this.parentParams = this.utilityComp.queryParams;
   }
@@ -202,6 +204,12 @@ export class JobSearchPage implements OnInit, OnDestroy {
     if (type === 'underlingAttendance') {
       type = 'attendance';
     }
+    alert()
+    this.http.get("/target/list", {}).subscribe((rs: any) => {
+      alert(2)
+      console.log("rs:"+rs)
+      let result = rs ? rs : [];
+     });
     // this.contactService.getContacts(type, this.extraparam).subscribe((data) => {
     //   let clone = data.slice(0) || [];
     //   if (this.navParams('defaultContact')) {

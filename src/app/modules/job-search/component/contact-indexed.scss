@@ -1,0 +1,81 @@
+:host {
+  .ion_index_list_outer .list {
+    padding-right: 0;
+  }
+
+  .ion_index_list_outer .item {
+    border-right: none;
+  }
+
+  .ion_index_sidebar {
+    position: absolute;
+    right: 0;
+    top: 0px;
+    height: 100%;
+    text-align: center;
+    width: 20px;
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+    background: #fff;
+    z-index: 2;
+    color: #057bf7;
+    font-size: 11px;
+    font-weight: bold;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    padding: 10px 0px 10px 0px;
+    // color: map-get($colors, primary);
+    color: #057bf7;
+  }
+
+  .ion_index_sidebar.highlight {
+    background: #888888;
+    color: #fff;
+  }
+
+  .ion_index_sidebar.normal {
+    background: #ffffff;
+    // color: map-get($colors, primary);
+    color: #057bf7;
+  }
+
+  .ion_index_sidebar li {
+    position: relative;
+    z-index: 10;
+    flex: 1;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+  }
+
+  .highlight-letter {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    left: 50%;
+    top: 50%;
+    margin-left: -50px;
+    margin-top: -50px;
+    z-index: 3;
+    border-radius: 12px;
+    font-size: 30px;
+    padding-top: 30px;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+  }
+}
