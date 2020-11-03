@@ -14,6 +14,14 @@ const routes: Routes = [
     path: 'ResumeUploadPage',
     loadChildren: () =>
       import('../resume-upload/main/main.module').then((m) => m.ResumeUploadPageModule),
+  }, {// InfoMationPage
+    path: 'InforMationPage',
+    loadChildren: () =>
+      import('../information/main/main.module').then((m) => m.InforMationPageModule),
+  }, {// MailPage
+    path: 'MailPage',
+    loadChildren: () =>
+      import('../mail/main/main.module').then((m) => m.MailPageModule),
   },
 ];
 

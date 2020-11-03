@@ -205,9 +205,15 @@ export class JobSearchPage implements OnInit, OnDestroy {
       type = 'attendance';
     }
     this.http.get("/city/list", {}).subscribe((rs: any) => {
-      console.log("rs:"+rs);
+      const result = rs ? rs : [];
+      result.forEach(element => {
+        const cityItem = element.citys;
+        const spcitys = this.utilityComp.spArr(cityItem, 3);
+        element['spcitys'] = spcitys;
+      });
+      this.contactList = result;
+      console.log("contactList:"+JSON.stringify(this.contactList))
       debugger
-      let result = rs ? rs : [];
      });
     // this.contactService.getContacts(type, this.extraparam).subscribe((data) => {
     //   let clone = data.slice(0) || [];
@@ -219,25 +225,25 @@ export class JobSearchPage implements OnInit, OnDestroy {
     //   }
     //   this.setOffset(clone);
       // this.contactList = clone;
-      this.contactList = [{
-        group: "S",
-        userName: "上海"
-      },{
-        group: "A",
-        userName: "aaaa"
-      },{
-        group: "A",
-        userName: "222aaaa"
-      },{
-        group: "B",
-        userName: "波波"
-      },{
-        group: "X",
-        userName: "xinxi"
-      },{
-        group: "E",
-        userName: "xinxi"
-      }]
+      // this.contactList = [{
+      //   group: "S",
+      //   userName: "上海"
+      // },{
+      //   group: "A",
+      //   userName: "aaaa"
+      // },{
+      //   group: "A",
+      //   userName: "222aaaa"
+      // },{
+      //   group: "B",
+      //   userName: "波波"
+      // },{
+      //   group: "X",
+      //   userName: "xinxi"
+      // },{
+      //   group: "E",
+      //   userName: "xinxi"
+      // }]
       this.pageState = this.contactList.length > 0 ? 1 : 2;
     // });
   }
