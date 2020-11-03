@@ -1,0 +1,25 @@
+:host {
+  ion-toolbar {
+    &:first-of-type {
+      box-sizing: content-box;
+    }
+    &.ios {
+      height: 40px !important;
+    }
+    &.h5-show-bar {
+      height: 40px !important;
+    }
+  }
+  h3{
+    margin-top: 0;
+  }
+  .pd-20{
+    padding: 20px 20px 0;
+    border-bottom: 1px solid #E1E7FB;
+    &:last-child{
+      border-bottom: 0px solid transparent;
+    }
+  }
+  
+  
+}

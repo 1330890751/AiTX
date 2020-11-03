@@ -1,0 +1,50 @@
+<ion-header #header mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab3"></ion-back-button>
+    </ion-buttons>
+    <ion-title [hidden]="islandscape"> {{ '上传信息预览' | translate }} </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <!--pagesate-->
+  <!-- <vx-pagestate [state]="pageState"></vx-pagestate> -->
+  <form class="base-application-request workflow-margin" (ngSubmit)="submitHandler()">
+    <!--名称-->
+    <ion-list mode="ios" class="no-border">
+      <ion-item mode="ios">
+        <ion-label>{{fieldInfo?.name.label}}</ion-label>
+        <ion-input [(ngModel)]="formData.name" name="name" maxlength="500" placeholder="必填"></ion-input>
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-label>{{fieldInfo?.age.label}}</ion-label>
+        <ion-input [(ngModel)]="formData.age" name="age" maxlength="500" placeholder="必填"></ion-input>
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-label>{{fieldInfo?.phone.label}}</ion-label>
+        <ion-input [(ngModel)]="formData.phone" name="phone" maxlength="500" placeholder="必填"></ion-input>
+      </ion-item>
+
+      <ion-item mode="ios">
+        <ion-label>{{fieldInfo?.workingyear.label}}</ion-label>
+        <ion-input [(ngModel)]="formData.workingyear" name="workingyear" maxlength="500" placeholder="必填"></ion-input>
+      </ion-item>
+      <ion-item mode="ios">
+        <ion-label>{{fieldInfo?.exposition.label}}</ion-label>
+        <ion-input [(ngModel)]="formData.exposition" name="exposition" maxlength="500" placeholder="必填"></ion-input>
+      </ion-item>
+      <!--期望工作城市-->
+      <ion-item detail="false" mode="ios" [button]='true' type="button" (click)="selectEmp('directorId')">
+        <ion-label>{{fieldInfo?.excityId.label}}</ion-label>
+        <ion-label class="ion-text-right" slot="end" [class.defaultFont]="formData.excityId">
+          {{formData.excityIdName}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer class="ion-no-border">
+  <ion-toolbar class="footer-button">
+    <ion-button (click)="submitHandler()" expand="block">报名投递 </ion-button>
+  </ion-toolbar>
+</ion-footer>
+

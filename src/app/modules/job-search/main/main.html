@@ -57,10 +57,10 @@
     <ng-container *ngIf="spaceExpand">
       <p>定位城市</p>
       <div>上海</div>
-      <p>热门城市</p>
+      <!-- <p>热门城市</p>
       <ul>
         <li *ngFor="let hotItem of hotCity">{{hotItem.text}}</li>
-      </ul>
+      </ul> -->
     
     <!-- --city城市----- -->
     <ion-virtual-scroll
@@ -79,12 +79,13 @@
       <ion-item
         lines="none"
         mode="ios"
-        *virtualItem="let contact"
-        (click)="itemSelected(contact)"
+        *virtualItem="let spcitys"
+        (click)="itemSelected(spcitys)"
       >
         <ion-label>
           <span class="list-item" >
-           {{ contact.userName }}
+            444
+           <!-- {{ }} -->
           </span>
          
         </ion-label>

@@ -238,4 +238,13 @@ export class UtilityComponentService {
     console.log('topHeight:' + topheight);
     return topheight;
   }
+
+  // 将数组分为n组
+  spArr(arr, num) { // arr是你要分割的数组，num是以几个为一组
+    let newArr = [];  // 首先创建一个新的空数组。用来存放分割好的数组
+    for (let k = 0; k < arr.length;) { // 注意：这里与for循环不太一样的是，没有i++
+      newArr.push(arr.slice(k, k += num));
+    }
+    return newArr;
+  }
 }

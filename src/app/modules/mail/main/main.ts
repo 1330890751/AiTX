@@ -40,11 +40,11 @@ interface IUploadFile {
   isPic?: boolean;
 }
 @Component({
-  selector: 'my-team-main-page',
+  selector: 'position-mail-page',
   templateUrl: 'main.html',
   styleUrls: ['main.scss'],
 })
-export class ResumeUploadPage implements OnInit, OnDestroy {
+export class MailPage implements OnInit, OnDestroy {
   initlized = false;
   fileList: IUploadFile[] = [];
 
