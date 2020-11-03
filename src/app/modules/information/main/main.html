@@ -34,10 +34,27 @@
         <ion-input [(ngModel)]="formData.exposition" name="exposition" maxlength="500" placeholder="必填"></ion-input>
       </ion-item>
       <!--期望工作城市-->
-      <ion-item detail="false" mode="ios" [button]='true' type="button" (click)="selectEmp('directorId')">
+      <ion-item detail="false">
         <ion-label>{{fieldInfo?.excityId.label}}</ion-label>
-        <ion-label class="ion-text-right" slot="end" [class.defaultFont]="formData.excityId">
-          {{formData.excityIdName}}</ion-label>
+        <!-- <ion-label class="ion-text-right" slot="end" [class.defaultFont]="formData.excityId">
+          {{formData.excityIdName}}</ion-label> -->
+          <!-- start-- -->
+          <!-- [cancelText]="translateService.instant('Cancel')"
+          [disabled]="formData.HukouLocationdisable"
+          [doneText]="translateService.instant('Confirm')" -->
+          <ion-label>
+            <city-picker
+              class="hukou-item"
+              name="HukouLocation"
+        
+              [separator]="'-'"
+              [citiesData]="cityData"
+              (ionChange)="cityChange($event)"
+              [valueCheckHandler]="HukouCheck"
+              [(ngModel)]="formData.HukouLocationname"
+          >
+          </city-picker>
+        </ion-label>   
       </ion-item>
     </ion-list>
   </form>
