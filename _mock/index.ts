@@ -1,2 +1,2 @@
-export * from './assess';
-export * from './target';
+export * from './me';
+export * from './position';

@@ -37,7 +37,7 @@ export class ContactIndexedComponent implements OnInit, AfterViewInit {
   scrollToLetterEvent = new EventEmitter<string>();
   indexheight = '0px';
   constructor(
-    @Inject(HAMMER_GESTURE_CONFIG) public hammerGestureConfig: HammerGestureConfig,
+    // @Inject(HAMMER_GESTURE_CONFIG) public hammerGestureConfig: HammerGestureConfig,
     private el: ElementRef,
     private plt: Platform,
     ref: ChangeDetectorRef,
