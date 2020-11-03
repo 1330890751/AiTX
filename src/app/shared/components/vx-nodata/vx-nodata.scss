@@ -1,0 +1,31 @@
+:host {
+  display: block;
+  margin: 0 auto;
+  width: 170px;
+  text-align: center;
+  div.nodata {
+    // margin-top: var(--nodata-margin-top, 50px);
+    margin-top: 50px;
+  }
+  .img {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+  .span {
+    // @include fontSize(12px);
+    font-size: 12px;
+    text-align: center;
+    // color: map-get($vxcolors, base-gray);
+    color: gray;
+  }
+  .nodata {
+    font-size: 12px !important;
+    text-align: center;
+    // color: map-get($vxcolors, base-gray) !important;
+    color: gray;
+    span {
+      display: inline-block;
+      margin-top: 10px;
+    }
+  }
+}

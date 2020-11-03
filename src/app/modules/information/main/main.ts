@@ -18,7 +18,8 @@ import { AuthService } from '@core/auth.service';
 import * as _ from 'lodash';
 import * as moment from 'moment';
 import { _HttpClient } from '@core/http.client';
-import {UtilityComponentService} from '@core/utils-component.service';
+import { UtilityComponentService } from '@core/utils-component.service';
+// import { CityDataService } from '@core/city_data.service';
 
 @Component({
   selector: 'positiion-information-page',
@@ -27,6 +28,7 @@ import {UtilityComponentService} from '@core/utils-component.service';
 })
 export class InforMationPage implements OnInit, OnDestroy {
   initlized = false;
+  private cityData: any[];
   formValid = false;
   formData: any = {
       id: "",
@@ -94,7 +96,9 @@ export class InforMationPage implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     public http: _HttpClient,
-    public utilityComp: UtilityComponentService
+    public utilityComp: UtilityComponentService,
+    // public cityDataSerice: CityDataService,
+
 
     // private vxRouter: VxRouteService,
   ) {}
@@ -103,7 +107,52 @@ export class InforMationPage implements OnInit, OnDestroy {
     if (!this.initlized) {
       this.initlized = true;
       this.getData();
+      this.getCityData();
     }
+  }
+  HukouCheck = (data, cityData) => {
+    const provinceIndex = cityData.findIndex((option) => option.name === data.province.text);
+    let cityItem = null;
+    if (provinceIndex !== -1) {
+      cityItem = cityData[provinceIndex].children.find((option) => option.name === data.city.text);
+    }
+    if (cityItem && cityItem.pcode === data.province.value) {
+      return true;
+    } else {
+      this.utilityComp.presentToast(
+        "城市数据选择错误"
+      //   this.translateService.instant('WFNew.Domicile Place Error', {
+      //     field: this.fixedFieldNames.HukouLocation,
+      //   }),
+      );
+      return false;
+    }
+  };
+  cityChange(event) {
+    if (event) {
+      this.formData.HukouLocation = event.province.value + ',' + event.city.value;
+      debugger
+      // this.afterRulsfieldChange('HukouLocation', this.formData.HukouLocation);
+      //    this.formData.HukouLocation = event;
+    } else {
+      this.utilityComp.presentToast(
+        "城市数据选择错误"
+        // this.translateService.instant('WFNew.Domicile Place Error', {
+        //   field: this.fixedFieldNames.HukouLocation,
+        // }),
+      );
+    }
+  }
+  getCityData(){
+    // this.cityDataSerice.getCitiesData().subscribe((data) => {
+    //   this.cityData = data;
+    // });
+    this.http.get(`/citydata`, {})
+      .subscribe(rs => {
+        console.log(rs)
+        this.cityData = _.cloneDeep(rs);
+        debugger
+      });
   }
   /**
    * 绑定load数据
@@ -122,13 +171,13 @@ export class InforMationPage implements OnInit, OnDestroy {
    * 绑定look 数据
    * @param rs
    */
-    bindLookFn(rs) {
-      try {
-          const { excity, ...params } = rs;
-          this.formData = params;
-          this.formData.excityIdName = excity.name;
-          this.formData.excityId = excity.id;
-      } catch (error) {}
+  bindLookFn(rs) {
+    try {
+        const { excity, ...params } = rs;
+        this.formData = params;
+        this.formData.excityIdName = excity.name;
+        this.formData.excityId = excity.id;
+    } catch (error) {}
     // this.pageState = 1;
   }
 
