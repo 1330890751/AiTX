@@ -1,6 +1,6 @@
 import { MockStatusError } from '@knz/mock';
 
-export const APILIST = {
+export const APIMe = {
   '/api/401': () => {
     throw new MockStatusError(401);
   },

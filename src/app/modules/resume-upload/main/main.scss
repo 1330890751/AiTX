@@ -10,8 +10,11 @@
       height: 40px !important;
     }
   }
+  h3{
+    margin-top: 0;
+  }
   .pd-20{
-    padding: 20px 40px 0 20px;
+    padding: 20px 20px 0;
     border-bottom: 1px solid #E1E7FB;
     &:last-child{
       border-bottom: 0px solid transparent;

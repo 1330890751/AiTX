@@ -204,10 +204,9 @@ export class JobSearchPage implements OnInit, OnDestroy {
     if (type === 'underlingAttendance') {
       type = 'attendance';
     }
-    alert()
-    this.http.get("/target/list", {}).subscribe((rs: any) => {
-      alert(2)
-      console.log("rs:"+rs)
+    this.http.get("/city/list", {}).subscribe((rs: any) => {
+      console.log("rs:"+rs);
+      debugger
       let result = rs ? rs : [];
      });
     // this.contactService.getContacts(type, this.extraparam).subscribe((data) => {
