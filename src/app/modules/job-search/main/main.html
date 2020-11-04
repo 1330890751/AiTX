@@ -81,6 +81,7 @@
         mode="ios"
         *virtualItem="let item"
         (click)="itemSelected(spcitys)"
+        [trackBy]="trackBy"
       >
       <ng-container *ngFor="let spcitys of item.spcitys">
         <ion-label>
