@@ -129,32 +129,19 @@ function uploadFn(para: any = {
 }
 
 function getInformation(para: any = {}) {
-  const result = Array.from({ length: 10 }, (i) => ({
-    "canceled" : true,
-    "completion" : 70,
-    "createTime" : "string",
-    "creator" : {
-        "avatar" : "string",
-        "id" : "string",
-        "name" : "admin"
-    },
-    "director" : {
-        "avatar" : "string",
-        "id" : "string",
-        "name" : "admin"
-    },
+  const result = {
     "name" : "需求调研",
     "age" : "18",
     "phone" : "18122222229",
     "workingyear" : "4年",
     "exposition" : "前端开发工程师",
     "excity" :  {
-      "id" : "string",
-      "name" : "上海"
+      "id" : "26,26",
+      "name" : "天津-天津"
     },
     "workexperience": "这是工作经历",
     "proexperience": "这是项目经历这是项目经历这是项目经历这是项目经历这是项目经历这是项目经历"
-  }));
+  };
   return {
       errorMsg: '',
       errorCode: "0",

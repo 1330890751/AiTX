@@ -13,32 +13,30 @@
     <!--名称-->
     <div class="info-title">基本信息</div>
     <ion-list mode="ios">
-      <ion-item mode="ios">
+      <ion-item mode="ios" lines="none">
         <ion-label>{{fieldInfo?.name.label}}</ion-label>
-        <ion-input [readonly]="readonly" [(ngModel)]="formData.name" name="name" maxlength="500" placeholder="必填"></ion-input>
+        <ion-input [readonly]="readonly" [(ngModel)]="formData.name" name="name" maxlength="50" placeholder="必填"></ion-input>
       </ion-item>
-      <ion-item mode="ios">
+      <ion-item mode="ios" lines="none">
         <ion-label>{{fieldInfo?.age.label}}</ion-label>
-        <ion-input [readonly]="readonly" [(ngModel)]="formData.age" name="age" maxlength="500" placeholder="必填"></ion-input>
+        <ion-input [readonly]="readonly" [(ngModel)]="formData.age" name="age" maxlength="50" placeholder="必填"></ion-input>
       </ion-item>
-      <ion-item mode="ios" class="">
+      <ion-item mode="ios" lines="none" class="no-border">
         <ion-label>{{fieldInfo?.phone.label}}</ion-label>
-        <ion-input [readonly]="readonly" [(ngModel)]="formData.phone" name="phone" maxlength="500" placeholder="必填"></ion-input>
+        <ion-input [readonly]="readonly" [(ngModel)]="formData.phone" name="phone" maxlength="50" placeholder="必填"></ion-input>
       </ion-item>
       <div class="info-title">工作信息</div>
-      <ion-item mode="ios">
+      <ion-item mode="ios" lines="none">
         <ion-label>{{fieldInfo?.workingyear.label}}</ion-label>
-        <ion-input [readonly]="readonly" [(ngModel)]="formData.workingyear" name="workingyear" maxlength="500" placeholder="必填"></ion-input>
+        <ion-input [readonly]="readonly" [(ngModel)]="formData.workingyear" name="workingyear" maxlength="50" placeholder="必填"></ion-input>
       </ion-item>
-      <ion-item mode="ios">
+      <ion-item mode="ios" lines="none">
         <ion-label>{{fieldInfo?.exposition.label}}</ion-label>
-        <ion-input [readonly]="readonly" [(ngModel)]="formData.exposition" name="exposition" maxlength="500" placeholder="必填"></ion-input>
+        <ion-input [readonly]="readonly" [(ngModel)]="formData.exposition" name="exposition" maxlength="50" placeholder="必填"></ion-input>
       </ion-item>
       <!--期望工作城市-->
-      <ion-item class="mg-b-10">
+      <ion-item class="no-border mg-b-10" lines="none">
         <ion-label>{{fieldInfo?.excityId.label}}</ion-label>
-        <!-- <ion-label class="ion-text-right" slot="end" [class.defaultFont]="formData.excityId">
-          {{formData.excityIdName}}</ion-label> -->
           <!-- start-- -->
           <!-- [cancelText]="translateService.instant('Cancel')"
           [disabled]="formData.HukouLocationdisable"
@@ -48,7 +46,6 @@
               class="hukou-item"
               name="HukouLocation"
               [cancelText]="'取消'"
-              [disabled]="formData.HukouLocationdisable"
               [doneText]="'确定'"
               [disabled]="readonly"
               [separator]="'-'"
@@ -59,6 +56,18 @@
           >
           </city-picker>
         </ion-label>   
+      </ion-item>
+      <ion-item mode="ios" lines="none" class="no-border contnet-label">
+        <ion-label>{{fieldInfo?.workexperience.label}}</ion-label>
+      </ion-item>
+      <ion-item mode="ios" lines="none" class="no-border mg-b-10">
+        <ion-textarea [maxlength]="500" [readonly]="readonly" [(ngModel)]="formData.workexperience" name="workexperience" maxlength="500" placeholder="选填"></ion-textarea>
+      </ion-item>
+      <ion-item mode="ios" lines="none" class="no-border contnet-label">
+        <ion-label>{{fieldInfo?.proexperience.label}}</ion-label>
+      </ion-item>
+      <ion-item mode="ios" lines="none" class="no-border mg-b-10">
+        <ion-textarea [maxlength]="500" [readonly]="readonly" [(ngModel)]="formData.proexperience" name="proexperience" maxlength="500" placeholder="选填"></ion-textarea>
       </ion-item>
     </ion-list>
   </form>

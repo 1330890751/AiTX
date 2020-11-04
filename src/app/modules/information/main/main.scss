@@ -1,4 +1,5 @@
 :host {
+  background-color: #F9FBFE;
   ion-toolbar {
     &:first-of-type {
       box-sizing: content-box;
@@ -26,8 +27,16 @@
     right: 0;
     top: 0;
   }
+  .title-label{
+    color: #626262;
+    font-size: 16px;
+  }
   ion-list {
+    background-color: #F9FBFE;
     ion-item {
+      &.contnet-label{
+        height: 34px;
+      }
       &.no-border{
         &:after{
           display: none;
@@ -78,6 +87,18 @@
         text-align: right;
         color: #252525;
         font-size: 16px;
+        font-weight: bold;
+      }
+      ion-textarea{
+        color: #252525;
+        font-size: 16px;
+        margin: 6px 0;
+        font-weight: bold;
+        ::ng-deep textarea{
+          height: 90px;
+          padding: 0;
+          line-height: 23px;
+        }
       }
     }
   }
