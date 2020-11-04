@@ -1,10 +1,3 @@
-import {
-  HttpClient,
-  HttpEventType,
-  HttpHeaders,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -20,33 +13,28 @@ import * as moment from 'moment';
 import { _HttpClient } from '@core/http.client';
 import {UtilityComponentService} from '@core/utils-component.service';
 
-// import { VxRouteService } from '@core/vx-route.service';
-
-type uploadStatus = 'error' | 'done' | 'uploading' | 'pendding' | 'downloading' | 'downloaded';
-
-interface IUploadFile {
-  lastModified: string; // 最后修改时间
-  fileName: string; // 文件名称
-  size: string; // 文件尺寸
-  sizeb: string; // 文件尺寸 b字节
-  downloadUrl?: string; // 下载url
-  percent?: number; // 上传进度
-  id?: string;
-  status?: uploadStatus;
-  originFileObj?: File; // 上传对象
-  icon?: string;
-  fileMIMEType?: string;
-  filePath?: string;
-  isPic?: boolean;
-}
 @Component({
   selector: 'position-mail-page',
   templateUrl: 'main.html',
   styleUrls: ['main.scss'],
 })
-export class MailPage implements OnInit, OnDestroy {
+export class MailPage implements OnInit {
+  viewId = "";   // 编辑时传入
   initlized = false;
-  fileList: IUploadFile[] = [];
+  readonly = false;  // 是否只读
+  formValid = false;
+  formData: any = {
+      id: "",
+      mail: "",
+  };
+  // 字段信息
+  fieldInfo: any = {
+    mail: {
+        label: "邮箱",
+        isRequire: true,
+        errorMsg: "请输入{{field}}",
+    }
+  };
 
   @ViewChild('fileInput', { static: false }) fileInput: ElementRef;
   constructor(
@@ -67,173 +55,102 @@ export class MailPage implements OnInit, OnDestroy {
   ) {}
   ngOnInit() {}
   ionViewDidEnter() {
-    if (this.initlized) return;
-    this.initlized = true;
+    if (!this.initlized) {
+      this.initlized = true;
+      this.getData();
+    }
+  }
+  /**
+   * 绑定load数据
+   */
+  getData() {
+    if (this.viewId) {
+      this.readonly = true;
+      this.http.get(`/position/mail/`, {})
+      .subscribe(rs => {
+          this.bindLookFn(rs);
+      });
+      return;
+    }
+    // this.pageState = 1;
+  }
+  /**
+   * 绑定look 数据
+   * @param rs
+   */
+  bindLookFn(rs) {
+    const {...params } = rs;
+    this.formData = params;
+    // this.pageState = 1;
   }
 
+  submitHandler() {
+    this.checkFormFild();   // 必选项验证
+    this.checkMail();   //邮箱验证
+    if (!this.formValid) return;
+    this.updateKeyResultsRestoreFn();
+  }
+  updateKeyResultsRestoreFn() {
+    console.log(this.formData, "----this.formData--------");
+    const parames = {
+      id: this.formData.id ? this.formData.id : "",
+      mail : this.formData.mail,
+    };
+    // if(parames.startTime - parames.endTime >0 ){
+    //     this.utilityComp.presentToast('开始日期必须早于结束日期');
+    //     return false;
+    // }
+    this.utilityComp.presentLoading();
+    // 编辑
+    if (this.viewId) {
+        // this.http.put("/key-results", _.cloneDeep(parames)).subscribe((rs: any) => {
+        //         history.back();
+        // });
+
+    }else{
+        // this.http.post("/key-results", _.cloneDeep(parames)).subscribe((rs: any) => {
+        //     history.back();
+        // });
+    }
+}
+
+checkMail(){
+  const { mail } = this.formData;
+  const re=/^\w+@[a-z0-9]+\.[a-z]+$/i; 
+  if (this.formValid && !re.test(mail)){
+    this.utilityComp.presentToast("请输入正确的邮箱");
+    this.formValid = false;
+  } 
+}
+  /**
+   * 表单字段验证
+   */
+  checkFormFild() {
+    console.log("forData", this.formData);
+    // 字段必填验证。
+    this.formValid = true;
+    for (const key in this.formData) {
+        if (this.formData.hasOwnProperty(key)) {
+            const element = this.formData[key];
+            const field = this.fieldInfo[key];
+            // 字段判空。
+            if (!element && field && field.isRequire) {
+                let msg = field.errorMsg || "请选择{{field}}";
+                msg = msg.replace("{{field}}", field.label);
+                this.utilityComp.presentToast(msg);
+                this.formValid = false;
+                break;
+            }
+        }
+    }
+  }
   ionViewWillEnter() {}
 
   ionViewWillLeave() { }
-  goPage(page){
-    // this.router.navigate(['/tabs/tab3/'+ page]);
-    this.utilityComp.navForwardByPath('/tabs/tab3/' + page);
-  }
-  ngOnDestroy() {}
-  addFile() {
-    // if (this.config.readonly) return;
-    this.fileInput.nativeElement.click();
-  }
-  onFileChange(event) {
-    const files = event.target.files;
-    console.log(files[0]);
-    const fileObj = this.createUploadFileByFile(files[0]);
-    console.log(fileObj);
-    if (fileObj) {
-      console.log(`${JSON.stringify(files)}`);
-      this.fileList.push(fileObj);
-      this.startUpload(fileObj);
-      debugger
-    }
-  }
-  startUpload(uploadFile: IUploadFile) {
-    console.log('start upload...');
-    console.log(uploadFile.originFileObj);
-    uploadFile.status = 'uploading';
-    // const serverUrl = `${this.helper.getAPI('UploadFiles')}`;
-    const serverUrl = `UploadFiles`;
-    const formData = new FormData();
-    formData.append('file', uploadFile.originFileObj);
-    formData.append('fileName', uploadFile.fileName);
-    formData.append('fileMimiType', uploadFile.fileMIMEType);
-    formData.append('fileSize', uploadFile.size);
-    formData.append('userid', '0');
-    let lang = window.localStorage.getItem('AppLanguage') || 'zh-cn';
-    if (lang === 'en-gb') lang = 'en';
 
-    // const sourceType = SourceType[this.helper.environment] || 0;
-    const sourceType = '0';
-    const req = new HttpRequest('POST', serverUrl, formData, {
-      reportProgress: true,
-      headers: new HttpHeaders({
-        Accept: '*/*',
-        'X-Requested-With': 'XMLHttpRequest',
-        version: this.authService.helper.appVersion,
-        language: lang,
-        sourcetype: sourceType,
-        expertphone: this.authService.userInfo.expertphone || '',
-        auth: this.authService.userInfo.auth || '',
-      }),
-    });
-    this.http.post("/upload", {}).subscribe((rs: any) => {
+  startUpload(uploadFile) {
+    this.http.post("/upload/mail", {}).subscribe((rs: any) => {
       alert("提交成功")
     });
-    // this.httpClient.request(req).subscribe(
-    //   (event) => {
-    //     // console.log(event)
-    //     if (event.type === HttpEventType.UploadProgress) {
-    //       const percentDone = Math.round((100 * event.loaded) / event.total);
-    //       console.log(percentDone + '%');
-    //       uploadFile.percent = percentDone;
-    //     } else if (event instanceof HttpResponse) {
-    //       const { errorCode, errorMsg, data } = event.body as any;
-    //       console.log(event.body);
-    //       if (String(errorCode) === '-1') {
-    //         uploadFile.status = 'error';
-    //         this.fileInput.nativeElement.value = '';
-    //         console.error(errorMsg);
-    //         this.utilityComp.presentToast(errorMsg);
-    //       } else {
-    //         uploadFile.status = 'done';
-    //         this.fileInput.nativeElement.value = '';
-    //         if (data) {
-    //           uploadFile.downloadUrl = data.url;
-    //           uploadFile.id = data.id;
-    //         }
-    //         this.syncFormValue();
-    //       }
-    //     }
-    //   },
-    //   (error) => {
-    //     uploadFile.status = 'error';
-    //     this.fileInput.nativeElement.value = '';
-    //     this.utilityComp.presentToast('上传失败');
-    //     console.error(error);
-    //   },
-    // );
-  }
-
-  createUploadFileByFile(file: any) {
-    if (file) {
-      const uploadFile: IUploadFile = {
-        lastModified: this.transformLastModifedTime(file.lastModified),
-        fileName: file.name,
-        status: 'uploading',
-        originFileObj: file,
-        fileMIMEType: file.type || '',
-        isPic: this.checkisImage(file.name),
-        icon: this.transformImageFileIcon(file.name),
-        size: this.transformFileSize(file.size),
-        sizeb: file.size,
-      };
-      return uploadFile;
-    }
-    return null;
-  }
-  checkisImage(fileName) {
-    const imageExts = ['jpg', 'jpeg', 'png', 'gif'];
-    let fileExt = fileName.substr(fileName.lastIndexOf('.') + 1);
-    fileExt = fileExt.toLowerCase();
-    let ret = false;
-    imageExts.forEach((item) => {
-      if (fileExt.indexOf(item) >= 0) {
-        ret = true;
-      }
-    });
-    return ret;
-  }
-  transformLastModifedTime(lastModified) {
-    let ret = '';
-    try {
-      ret = moment().format('YYYY-MM-DD HH:mm');
-    } catch (err) {}
-    return ret;
-  }
-
-  transformImageFileIcon(fileName) {
-    const imageExts = ['jpg', 'jpeg', 'png', 'gif'];
-    const documentExts = ['doc', 'docx', 'pdf', 'xlsx', 'txt'];
-    const zipExts = ['zip', 'rar'];
-    let fileExt = fileName.substr(fileName.lastIndexOf('.') + 1);
-    fileExt = fileExt.toLowerCase();
-    const isPic = imageExts.some((item) => {
-      return item.indexOf(fileExt) >= 0;
-    });
-    const isZip = zipExts.some((item) => {
-      return item.indexOf(fileExt) >= 0;
-    });
-    const isDoc = documentExts.some((item) => {
-      return item.indexOf(fileExt) >= 0;
-    });
-    if (isPic) {
-      return 'assets/img/picture@2x.png';
-    } else if (isZip) {
-      return 'assets/img/zip@2x.png';
-    } else if (isDoc) {
-      return 'assets/img/wendang@2x.png';
-    }
-    return 'assets/img/unknow@2x.png';
-  }
-
-  transformFileSize(byte: any) {
-    const kb = byte / 1024;
-    let mb;
-    if (kb > 1024) {
-      mb = kb / 1024;
-    }
-
-    const result = mb ? mb : kb;
-    const fix = mb ? 'MB' : 'KB';
-
-    return parseFloat(result).toFixed(3) + fix;
   }
 }
