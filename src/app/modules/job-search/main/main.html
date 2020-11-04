@@ -79,16 +79,20 @@
       <ion-item
         lines="none"
         mode="ios"
-        *virtualItem="let spcitys"
+        *virtualItem="let item"
         (click)="itemSelected(spcitys)"
       >
+      <ng-container *ngFor="let spcitys of item.spcitys">
         <ion-label>
           <span class="list-item" >
             444
-           <!-- {{ }} -->
+            <!-- 444{{item}} -->
+           {{ spcitys | json}}
           </span>
          
         </ion-label>
+      </ng-container>
+        
       </ion-item>
     </ion-virtual-scroll>
     </ng-container>
