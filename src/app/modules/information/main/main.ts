@@ -20,6 +20,7 @@ import { UtilityComponentService } from '@core/utils-component.service';
   styleUrls: ['main.scss'],
 })
 export class InforMationPage implements OnInit, OnDestroy {
+  viewId = "";   // 编辑时传入
   initlized = false;
   readonly = false;  // 是否只读
   private cityData: any[];
@@ -33,8 +34,7 @@ export class InforMationPage implements OnInit, OnDestroy {
       exposition: "",
       workexperience: "",
       proexperience: "",
-      excityId: "",
-      excityIdName: "请选择",
+      HukouLocationname: ""
   };
   // 字段信息
   fieldInfo: any = {
@@ -76,8 +76,6 @@ export class InforMationPage implements OnInit, OnDestroy {
       isRequire: false
     },
   };
-  // krid（编辑时传入）
-  viewId = "";
   constructor(
     public activatedRoute: ActivatedRoute,
     // public contactService: ContactService,
@@ -166,12 +164,9 @@ export class InforMationPage implements OnInit, OnDestroy {
    * @param rs
    */
   bindLookFn(rs) {
-    try {
-        const { excity, ...params } = rs;
-        this.formData = params;
-        this.formData.excityIdName = excity.name;
-        this.formData.excityId = excity.id;
-    } catch (error) {}
+    const { excity, ...params } = rs;
+    this.formData = params;
+    this.formData.HukouLocationname = excity.name;
     // this.pageState = 1;
   }
 
@@ -189,7 +184,8 @@ export class InforMationPage implements OnInit, OnDestroy {
       phone : this.formData.phone,
       workingyear : this.formData.workingyear,
       exposition : this.formData.exposition,
-      excityId : this.formData.excityId,   // 城市id
+      HukouLocation : this.formData.HukouLocation,    // 城市id
+      HukouLocationname : this.formData.HukouLocationname,   // 城市名称
       workexperience: this.formData.workexperience,
       proexperience: this.formData.proexperience
     };
