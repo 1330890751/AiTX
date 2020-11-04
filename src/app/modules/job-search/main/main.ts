@@ -204,17 +204,18 @@ export class JobSearchPage implements OnInit, OnDestroy {
     if (type === 'underlingAttendance') {
       type = 'attendance';
     }
-    this.http.get("/city/list", {}).subscribe((rs: any) => {
-      const result = rs ? rs : [];
-      result.forEach(element => {
-        const cityItem = element.citys;
-        const spcitys = this.utilityComp.spArr(cityItem, 3);
-        element['spcitys'] = spcitys;
-      });
-      this.contactList = result;
-      console.log("contactList:"+JSON.stringify(this.contactList))
-      debugger
-     });
+    // this.http.get("/city/list", {}).subscribe((rs: any) => {
+    //   const result = rs ? rs : [];
+    //   result.forEach(element => {
+    //     const name = element.name;
+    //     const cityItem = element.citys;
+    //     const spcitys = this.utilityComp.spArr(cityItem, 3, name);
+    //     element['spcitys'] = spcitys;
+    //   });
+    //   this.contactList = result;
+    //   console.log("contactList:"+JSON.stringify(this.contactList))
+    //   debugger
+    //  });
     // this.contactService.getContacts(type, this.extraparam).subscribe((data) => {
     //   let clone = data.slice(0) || [];
     //   if (this.navParams('defaultContact')) {
@@ -225,29 +226,34 @@ export class JobSearchPage implements OnInit, OnDestroy {
     //   }
     //   this.setOffset(clone);
       // this.contactList = clone;
-      // this.contactList = [{
-      //   group: "S",
-      //   userName: "上海"
-      // },{
-      //   group: "A",
-      //   userName: "aaaa"
-      // },{
-      //   group: "A",
-      //   userName: "222aaaa"
-      // },{
-      //   group: "B",
-      //   userName: "波波"
-      // },{
-      //   group: "X",
-      //   userName: "xinxi"
-      // },{
-      //   group: "E",
-      //   userName: "xinxi"
-      // }]
-      this.pageState = this.contactList.length > 0 ? 1 : 2;
+    this.contactList = [{
+      group: "S",
+      spcitys: ["上海","北京","广州"],
+      empId: 0
+    }, {
+      group: "A",
+      spcitys: ["上海","北京","广州"],
+      empId: 1
+    }, {
+      group: "",
+      spcitys: ["上海","北京","广州"],
+      empId: 1
+    }, {
+      group: "B",
+      spcitys: ["上海","北京","广州"],
+      empId: 2
+    }, {
+      group: "X",
+      spcitys: ["上海","北京","广州"],
+      empId: 3
+    }, {
+      group: "E",
+      spcitys: ["上海","北京","广州"],
+      empId: 4
+    }];
+    this.pageState = this.contactList.length > 0 ? 1 : 2;
     // });
   }
-
   setOffset(contacts) {
     contacts.forEach((item, index) => {
       // 分组为空时使其有空的分组名
@@ -275,8 +281,6 @@ export class JobSearchPage implements OnInit, OnDestroy {
       }
     });
   }
-
-  
 
   /*** 设置右边快速定位列表里头部** @param {any} record* @param {any} recordIndex* @param {any} records* @returns* @memberof ContactPage*/
   myHeaderFn(record, recordIndex, records) {
