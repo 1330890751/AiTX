@@ -1,10 +1,3 @@
-import {
-  HttpClient,
-  HttpEventType,
-  HttpHeaders,
-  HttpRequest,
-  HttpResponse,
-} from '@angular/common/http';
 import { Component, ViewChild, ElementRef, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
@@ -28,6 +21,7 @@ import { UtilityComponentService } from '@core/utils-component.service';
 })
 export class InforMationPage implements OnInit, OnDestroy {
   initlized = false;
+  readonly = false;  // 是否只读
   private cityData: any[];
   formValid = false;
   formData: any = {
@@ -45,7 +39,7 @@ export class InforMationPage implements OnInit, OnDestroy {
   // 字段信息
   fieldInfo: any = {
     name: {
-        label: "关键成果名称",
+        label: "姓名",
         isRequire: true,
         errorMsg: "请输入{{field}}",
     },
@@ -131,7 +125,6 @@ export class InforMationPage implements OnInit, OnDestroy {
   cityChange(event) {
     if (event) {
       this.formData.HukouLocation = event.province.value + ',' + event.city.value;
-      debugger
       // this.afterRulsfieldChange('HukouLocation', this.formData.HukouLocation);
       //    this.formData.HukouLocation = event;
     } else {
@@ -151,7 +144,7 @@ export class InforMationPage implements OnInit, OnDestroy {
       .subscribe(rs => {
         console.log(rs)
         this.cityData = _.cloneDeep(rs);
-        debugger
+        // debugger
       });
   }
   /**
@@ -159,11 +152,12 @@ export class InforMationPage implements OnInit, OnDestroy {
    */
   getData() {
     if (this.viewId) {
-        this.http.get(`/position/information/`, {})
-        .subscribe(rs => {
-            this.bindLookFn(rs);
-        });
-        return;
+      this.readonly = true;
+      this.http.get(`/position/information/`, {})
+      .subscribe(rs => {
+          this.bindLookFn(rs);
+      });
+      return;
     }
     // this.pageState = 1;
   }

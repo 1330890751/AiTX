@@ -26,9 +26,8 @@ export const CITY_PICKER_VALUE_ACCESSOR: any = {
 @Component({
   selector: 'city-picker',
   template: `
-    <div class="city-picker-text ion-float-right ion-text-end" style="margin-right: 30px;height: 100%;line-height: 45px;width
+    <div class="city-picker-text ion-float-right ion-text-end" style="margin-right: 20px;height: 100%;line-height: 45px;width
     :50%;overflow:hidden;">{{ _text }}</div>
-    <button [id]="id" mode="ios" type="button" disabled="{_labelId}"></button>
   `,
   // styles: ['.item-cover{color:black;--background:#fff;--button-background-activated:#fff;}'],
   styleUrls: ['city-picker.scss'],

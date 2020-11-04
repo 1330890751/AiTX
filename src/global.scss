@@ -25,6 +25,29 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+.picker-columns {
+  touch-action: none !important;
+}
+
+.picker-opts,
+.picker-prefix,
+.picker-suffix,
+.picker-opt {
+  font-size: 16px;
+}
+
+.picker-opt-selected {
+  color: #333 !important;
+}
+.picker-wrapper {
+  .picker-toolbar {
+    background: #fff;
+  }
+}
+.sc-ion-picker-ios-h {
+  --border-width: 0 !important;
+}
+
 ul,
 li {
   padding: 0;
