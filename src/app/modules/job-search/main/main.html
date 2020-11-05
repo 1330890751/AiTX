@@ -14,9 +14,9 @@
   >
   </ion-searchbar>
 </ion-header>
-<ion-content>
+<ion-content class="job-sea-content">
   <!--pagesate-->
-  <vx-pagestate [state]="pageState"></vx-pagestate>
+  <!-- <vx-pagestate [state]="pageState"></vx-pagestate> -->
   <div class="pd-20">
     <div class="title">
       <span>历史搜索</span>
@@ -32,9 +32,20 @@
       <span>岗位类型</span>
       <span [ngClass]="{'expand': jobExpand === true}"></span>
     </div>
-    <ul *ngIf="jobExpand" class="genre-content">
-      <li class="list-item" *ngFor="let genItem of genreData">{{genItem.text}}</li>
-    </ul>
+    <ion-grid *ngIf="jobExpand" class="genre-content">
+      <ion-row>
+        <ion-col
+          *ngFor="let genItem of genreData"
+          size="4"
+          ion-item
+          (click)="cityClick(spcitys)"
+        >
+          <div class="item-content">
+            {{genItem.text}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <div class="pd-20">
     <div class="sub-title">
@@ -45,9 +56,20 @@
       <span></span>
       <span>最高</span>
     </div>
-    <ul class="genre-content">
-      <li class="list-item" *ngFor="let genItem of rangeData">{{genItem.text1}}<br/>{{genItem.text2}}</li>
-    </ul>
+    <ion-grid class="genre-content">
+      <ion-row>
+        <ion-col
+          *ngFor="let genItem of rangeData"
+          size="4"
+          ion-item
+          (click)="cityClick(spcitys)"
+        >
+          <div class="item-content">
+            {{genItem.text1}}<br/>{{genItem.text2}}
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
   <div class="pd-20">
     <div class="sub-title" (click)="toggleExpand('spaceExpand')">
@@ -55,13 +77,12 @@
       <span [ngClass]="{'expand': spaceExpand === true}"></span>
     </div>
     <ng-container *ngIf="spaceExpand">
-      <p>定位城市</p>
+      <div>定位城市</div>
       <div>上海</div>
       <!-- <p>热门城市</p>
       <ul>
         <li *ngFor="let hotItem of hotCity">{{hotItem.text}}</li>
       </ul> -->
-    
     <!-- --city城市----- -->
     <ion-virtual-scroll
       mode="ios"
@@ -76,25 +97,20 @@
       <ion-item-divider class="top" id="{{ header }}" *virtualHeader="let header">
         {{ header }}
       </ion-item-divider>
-      <ion-item
-        lines="none"
-        mode="ios"
-        *virtualItem="let item"
-        (click)="itemSelected(spcitys)"
-        [trackBy]="trackBy"
-      >
-      <ng-container *ngFor="let spcitys of item.spcitys">
-        <ion-label>
-          <span class="list-item" >
-            444
-            <!-- 444{{item}} -->
-           {{ spcitys | json}}
-          </span>
-         
-        </ion-label>
-      </ng-container>
-        
-      </ion-item>
+        <ion-grid *virtualItem="let item">
+          <ion-row>
+            <ion-col
+              *ngFor="let spcitys of item.spcitys"
+              size="4"
+              ion-item
+              (click)="cityClick(spcitys)"
+            >
+            <div class="item-content">
+              {{ spcitys}}
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-virtual-scroll>
     </ng-container>
   </div>
