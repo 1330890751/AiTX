@@ -204,55 +204,33 @@ export class JobSearchPage implements OnInit, OnDestroy {
     if (type === 'underlingAttendance') {
       type = 'attendance';
     }
-    // this.http.get("/city/list", {}).subscribe((rs: any) => {
-    //   const result = rs ? rs : [];
-    //   result.forEach(element => {
-    //     const name = element.name;
-    //     const cityItem = element.citys;
-    //     const spcitys = this.utilityComp.spArr(cityItem, 3, name);
-    //     element['spcitys'] = spcitys;
-    //   });
-    //   this.contactList = result;
-    //   console.log("contactList:"+JSON.stringify(this.contactList))
-    //   debugger
-    //  });
-    // this.contactService.getContacts(type, this.extraparam).subscribe((data) => {
-    //   let clone = data.slice(0) || [];
-    //   if (this.navParams('defaultContact')) {
-    //     clone = _.filter(clone, (item) => {
-    //       if (item.showContact && Number(item.showContact) === 1) return true;
-    //       return false;
-    //     });
-    //   }
-    //   this.setOffset(clone);
-      // this.contactList = clone;
-    this.contactList = [{
-      group: "S",
-      spcitys: ["上海","北京","广州"],
-      empId: 0
-    }, {
-      group: "A",
-      spcitys: ["上海","北京","广州"],
-      empId: 1
-    }, {
-      group: "",
-      spcitys: ["上海","北京","广州"],
-      empId: 1
-    }, {
-      group: "B",
-      spcitys: ["上海","北京","广州"],
-      empId: 2
-    }, {
-      group: "X",
-      spcitys: ["上海","北京","广州"],
-      empId: 3
-    }, {
-      group: "E",
-      spcitys: ["上海","北京","广州"],
-      empId: 4
-    }];
-    this.pageState = this.contactList.length > 0 ? 1 : 2;
-    // });
+    this.http.get("/city/list", {}).subscribe((rs: any) => {
+      const result = rs ? rs : [];
+      const clone = this.formatContactData(false, result);
+      // this.setOffset(clone);
+      this.contactList = clone;
+      this.pageState = this.contactList.length > 0 ? 1 : 2;
+     });
+  }
+
+  /**
+   * 格式化通讯录数据
+   */
+  private formatContactData(filter, data) {
+    const contacts = [];
+    const list = data;
+    console.log(data);
+    for (let i = 0; i < list.length; i++) {
+      const group = list[i].name;
+      const citys = list[i].citys;
+      const listItem = this.utilityComp.spArr(citys,3);
+      for (let j = 0; j < listItem.length; j++) {
+        listItem[j].group = j !== 0 ? '' : _.cloneDeep(group);
+        listItem[j].spcitys = _.cloneDeep(listItem[j]);
+        contacts.push(listItem[j]);
+      }
+    }
+    return contacts;
   }
   setOffset(contacts) {
     contacts.forEach((item, index) => {
@@ -324,7 +302,6 @@ export class JobSearchPage implements OnInit, OnDestroy {
    */
   filterItems(ev: any) {
     console.log(this.contactList)
-    debugger
     // const val = ev.target.value;
     // let filterList;
     // if (val && val.trim() !== '') {
@@ -351,8 +328,8 @@ export class JobSearchPage implements OnInit, OnDestroy {
   }
 
   /*** 点击行数据** @param {*} item* @returns* @memberof ContactPage*/
-  itemSelected(item: any) {
-    console.log("点击了city-item")
+  cityClick(item: any) {
+    console.log("点击了city")
   }
 
   /***  点击行数据* @param {*} item* @memberof ContactPage*/

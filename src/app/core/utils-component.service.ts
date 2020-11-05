@@ -240,17 +240,10 @@ export class UtilityComponentService {
   }
 
   // 将数组分为n组
-  spArr(arr, num, name) { // arr是你要分割的数组，num是以几个为一组
+  spArr(arr, num) { // arr是你要分割的数组，num是以几个为一组
     let newArr = [];  // 首先创建一个新的空数组。用来存放分割好的数组
-    let obj = {
-      group: name,
-      spcitys: []
-    };
     for (let k = 0; k < arr.length;) { // 注意：这里与for循环不太一样的是，没有i++
-      const citygroup = arr.slice(k, k += num);
-      obj.spcitys= citygroup;
-      newArr.push(obj);
-      // newArr.push(arr.slice(k, k += num));
+      newArr.push(arr.slice(k, k += num));
     }
     return newArr;
   }
